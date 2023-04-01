@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""documentation yaya"""
 from api.v1.views import app_views
 from flask import Response
 from json import dumps

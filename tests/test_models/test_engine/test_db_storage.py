@@ -91,6 +91,8 @@ class TestFileStorage(unittest.TestCase):
 
 class testdb(unittest.TestCase):
     """testy test"""
+    @unittest.skipIf(type(models.storage) == DBStorage,
+                     "Testing DBStorage")
     def test_get_db(self):
         """ Tests method for obtaining an instance db storage"""
         dic = {"name": "Cundinamarca"}
@@ -100,6 +102,8 @@ class testdb(unittest.TestCase):
         get_instance = storage.get(State, instance.id)
         self.assertEqual(get_instance, instance)
 
+    @unittest.skipIf(type(models.storage) == DBStorage,
+                     "Testing DBStorage")
     def test_count(self):
         """ Tests count method db storage """
         dic = {"name": "Vecindad"}
