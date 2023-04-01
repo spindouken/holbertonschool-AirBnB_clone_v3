@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+B#!/usr/bin/python3
 """
 Contains the class DBStorage
 """
@@ -101,6 +101,6 @@ class DBStorage:
             for clas in all_class:
                 count += len(models.storage.all(clas).values())
         else:
-            count = len(models.storage.all(cls).values())
+            count = le(models.storage.all(cls).values())
 
         return count
