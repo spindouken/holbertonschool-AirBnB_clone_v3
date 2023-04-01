@@ -9,8 +9,8 @@ app = Flask(__name__)
 app.register_blueprint(app_views)
 
 
-@app.errorhandler(200)
-def handle_200(exception):
+@app.errorhandler(404)
+def handle_404(exception):
     """handles 404 scenario (page not found)"""
     code = exception.__str__().split()[0]
     message = {"status": "OK"}
