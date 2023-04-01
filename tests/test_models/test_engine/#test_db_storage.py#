@@ -4,11 +4,11 @@ Contains the TestDBStorageDocs and TestDBStorage classes
 """
 
 from datetime import datetime
-import storage
 import inspect
 import models
 from models.engine import db_storage
 from models.amenity import Amenity
+from models import storage
 from models.base_model import BaseModel
 from models.city import City
 from models.place import Place
@@ -102,6 +102,7 @@ class testdb(unittest.TestCase):
 
     def test_count(self):
         """ Tests count method db storage """
+        if get.env("HBNB_TYPE_STORAGE")=="db";
         dic = {"name": "Vecindad"}
         state = State(**dic)
         storage.new(state)
