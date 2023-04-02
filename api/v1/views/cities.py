@@ -6,7 +6,9 @@ from models import storage
 from models.city import City
 from models.state import State
 
-@app_views.route('/states/<string:state_id>/cities', methods=['GET'], strict_slashes=False)
+
+@app_views.route('/states/<string:state_id>/cities', methods=['GET'],
+                 strict_slashes=False)
 def get_cities(state_id):
     """retrieves list of all city objects of a state"""
     state = storage.get(State, state_id)
@@ -15,7 +17,9 @@ def get_cities(state_id):
     cities = [city.to_dict() for city in state.cities]
     return jsonify(cities)
 
-@app_views.route('/cities/<string:city_id>', methods=['GET'], strict_slashes=False)
+
+@app_views.route('/cities/<string:city_id>', methods=['GET'],
+                 strict_slashes=False)
 def get_city(city_id):
     """retrieves a city object"""
     city = storage.get(City, city_id)
@@ -23,7 +27,9 @@ def get_city(city_id):
         abort(404)
     return jsonify(city.to_dict())
 
-@app_views.route('/cities/<string:city_id>', methods=['DELETE'], strict_slashes=False)
+
+@app_views.route('/cities/<string:city_id>', methods=['DELETE'],
+                 strict_slashes=False)
 def delete_city(city_id):
     """deletes a city object"""
     city = storage.get(City, city_id)
@@ -33,7 +39,9 @@ def delete_city(city_id):
     storage.save()
     return make_response(jsonify({}), 200)
 
-@app_views.route('/states/<string:state_id>/cities', methods=['POST'], strict_slashes=False)
+
+@app_views.route('/states/<string:state_id>/cities', methods=['POST'],
+                 strict_slashes=False)
 def create_city(state_id):
     """creates a city"""
     state = storage.get(State, state_id)
@@ -47,7 +55,9 @@ def create_city(state_id):
     city.save()
     return make_response(jsonify(city.to_dict()), 201)
 
-@app_views.route('/cities/<string:city_id>', methods=['PUT'], strict_slashes=False)
+
+@app_views.route('/cities/<string:city_id>', methods=['PUT'],
+                 strict_slashes=False)
 def update_city(city_id):
     """updates a city object"""
     city = storage.get(City, city_id)
