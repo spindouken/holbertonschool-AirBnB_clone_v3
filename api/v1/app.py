@@ -13,7 +13,7 @@ app.register_blueprint(app_views)
 def handle_404(exception):
     """handles 404 scenario (page not found)"""
     code = exception.__str__().split()[0]
-    message = {"status": "OK"}
+    message = {"error": "Not found"}
     return make_response(message, code)
 
 
