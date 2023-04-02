@@ -157,6 +157,5 @@ No known bugs at this time.
 Mason Counts - [Github](https://github.com/spindouken) / [Other Handles](https://)  
 Jared Glass - [Github](https://github.com/Jaredglass3) / [Other Handles](https://)
 
-Second part of Airbnb: Joann Vuong
 ## License
 Public Domain. No copy write protection.
