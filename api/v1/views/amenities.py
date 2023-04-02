@@ -12,7 +12,8 @@ from models.amenity import Amenity
                  strict_slashes=False)
 def chill_with_amenities():
     """kick back and get all amenity objects"""
-    amenities = [amenity.to_dict() for amenity in storage.all(Amenity).values()]
+    amenities = [amenity.to_dict() for amenity
+                 in storage.all(Amenity).values()]
     return jsonify(amenities)
 
 
