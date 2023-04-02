@@ -91,27 +91,50 @@ class TestFileStorage(unittest.TestCase):
 
 class testdb(unittest.TestCase):
     """testy test"""
-    @unittest.skipIf(type(models.storage) == DBStorage,
-                     "Testing DBStorage")
-    def test_get_db(self):
-        """ Tests method for obtaining an instance db storage"""
-        dic = {"name": "Cundinamarca"}
-        instance = State(**dic)
-        storage.new(instance)
-        storage.save()
-        get_instance = storage.get(State, instance.id)
-        self.assertEqual(get_instance, instance)
+    @classmethod
+    def setUpClass(cls):
+        os.environ['HBNB_MYSQL_USER'] = 'test_user'
+        os.environ['HBNB_MYSQL_PWD'] = 'test_pwd'
+        os.environ['HBNB_MYSQL_HOST'] = 'localhost'
+        os.environ['HBNB_MYSQL_DB'] = 'test_db'
+        os.environ['HBNB_ENV'] = 'test'
+        cls.storage = DBStorage()
+        cls.storage.reload()
 
-    @unittest.skipIf(type(models.storage) == DBStorage,
-                     "Testing DBStorage")
+    @classmethod
+    def tearDownClass(cls):
+        del cls.storage
+
+    def test_get(self):
+        state = State(name="California")
+        self.storage.new(state)
+        self.storage.save()
+        state_id = state.id
+
+        retrieved_state = self.storage.get(State, state_id)
+        self.assertIsInstance(retrieved_state, State)
+        self.assertEqual(retrieved_state.id, state_id)
+        self.assertIs(retrieved_state, state)
+
+        non_existent_state = self.storage.get(State, "non_existent_id")
+        self.assertIsNone(non_existent_state)
+
     def test_count(self):
-        """ Tests count method db storage """
-        dic = {"name": "Vecindad"}
-        state = State(**dic)
-        storage.new(state)
-        dic = {"name": "Mexico", "state_id": state.id}
-        city = City(**dic)
-        storage.new(city)
-        storage.save()
-        c = storage.count()
-        self.assertEqual(len(storage.all()), c)
+        initial_count = self.storage.count(State)
+
+        state1 = State(name="California")
+        state2 = State(name="Nevada")
+
+        self.storage.new(state1)
+        self.storage.new(state2)
+        self.storage.save()
+
+        new_count = self.storage.count(State)
+        self.assertEqual(initial_count + 2, new_count)
+
+        total_count = self.storage.count()
+        self.assertGreater(total_count, new_count)
+
+
+if __name__ == "__main__":
+    unittest.main()
