@@ -17,6 +17,7 @@ def status():
     """Return API status"""
     return Response(dumps({"status": "OK"}), content_type='application/json')
 
+
 @app_views.route("/stats", methods=["GET"], strict_slashes=False)
 def stats():
     """Return the count of each object by type"""
